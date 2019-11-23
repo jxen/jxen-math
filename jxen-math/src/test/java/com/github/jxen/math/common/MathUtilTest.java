@@ -23,7 +23,7 @@ class MathUtilTest {
 
 	@Test
 	void testToFraction() {
-		double value = 1.3333;
+		double value = 1.33333;
 		long[] actual = MathUtil.toFraction(value);
 		long[] expected = {4, 3};
 		assertArrayEquals(expected, actual);
@@ -31,7 +31,7 @@ class MathUtilTest {
 
 	@Test
 	void testToFractionNegative() {
-		double value = -1.3333;
+		double value = -1.33333;
 		long[] actual = MathUtil.toFraction(value);
 		long[] expected = {-4, 3};
 		assertArrayEquals(expected, actual);
@@ -66,6 +66,14 @@ class MathUtilTest {
 		double value = 0.3;
 		long[] actual = MathUtil.toFraction(value, 5);
 		long[] expected = {1, 3};
+		assertArrayEquals(expected, actual);
+	}
+
+	@Test
+	void testToFractionEdgeCase4() {
+		double value = 0.0001;
+		long[] actual = MathUtil.toFraction(value);
+		long[] expected = {1, 10000};
 		assertArrayEquals(expected, actual);
 	}
 }

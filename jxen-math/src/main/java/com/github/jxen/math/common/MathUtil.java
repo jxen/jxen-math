@@ -99,11 +99,11 @@ public final class MathUtil {
 		for (int i = 1; i <= maxCount; i++) {
 			values[i] = (long) x;
 			if (values[i] == 0L || values[i] > precision) {
-				return Arrays.copyOf(values, i);
+				return Arrays.copyOf(values, i == 1 ? 2 : i);
 			}
 			max *= values[i];
 			if (max > precision) {
-				return Arrays.copyOf(values, i);
+				return Arrays.copyOf(values, i == 1 ? 2 : i);
 			}
 			x = 1.0 / (x - values[i]);
 		}
