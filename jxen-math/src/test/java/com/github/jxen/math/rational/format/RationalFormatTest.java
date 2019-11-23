@@ -48,6 +48,12 @@ class RationalFormatTest {
 	}
 
 	@Test
+	void testFormatRationalZero() {
+		String actual = new RationalFormat().format(Rational.ZERO);
+		assertEquals("0", actual);
+	}
+
+	@Test
 	void testFormatBigRational() {
 		String actual = new RationalFormat().format(BigRational.valueOf(1.5));
 		assertEquals("1 1/2", actual);
@@ -57,6 +63,12 @@ class RationalFormatTest {
 	void testFormatBigRational2() {
 		String actual = new RationalFormat().format(BigRational.TWO);
 		assertEquals("2", actual);
+	}
+
+	@Test
+	void testFormatBigRationalZero() {
+		String actual = new RationalFormat().format(BigRational.ZERO);
+		assertEquals("0", actual);
 	}
 
 	@Test

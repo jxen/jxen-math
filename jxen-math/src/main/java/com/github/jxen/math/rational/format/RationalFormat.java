@@ -21,7 +21,9 @@ import java.util.regex.Pattern;
  */
 public class RationalFormat extends NumberFormat {
 
-	private static final long serialVersionUID = 5196845840740904073L;
+	private static final long serialVersionUID = -360721434914020723L;
+
+	private static final String ZERO = "0";
 
 	private final Helper integralHelper = new DefaultHelper();
 	private final Helper numeratorHelper;
@@ -65,6 +67,9 @@ public class RationalFormat extends NumberFormat {
 	}
 
 	private StringBuffer format(Rational number, StringBuffer toAppendTo) {
+		if (Rational.ZERO.equals(number)) {
+			return toAppendTo.append(ZERO);
+		}
 		long integral = number.getIntegral();
 		if (integral != 0) {
 			toAppendTo.append(integralHelper.format(integral));
@@ -87,6 +92,9 @@ public class RationalFormat extends NumberFormat {
 	}
 
 	private StringBuffer format(BigRational number, StringBuffer toAppendTo) {
+		if (BigRational.ZERO.equals(number)) {
+			return toAppendTo.append(ZERO);
+		}
 		BigInteger integral = number.getIntegral();
 		if (integral.compareTo(BigInteger.ZERO) != 0) {
 			toAppendTo.append(integralHelper.format(integral));
