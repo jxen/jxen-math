@@ -9,7 +9,7 @@
 		<version>1</version>
 	</parent>
 	<artifactId>jxen-math</artifactId>
-	<version>0.1</version>
+	<version>0.2-SNAPSHOT</version>
 	<name>Java Xenon Math related stuff</name>
 	<description>Java Xenon Common Math classes</description>
 </project>
