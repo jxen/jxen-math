@@ -4,6 +4,8 @@ import com.github.jxen.math.common.ArithmeticAware;
 import com.github.jxen.math.common.MathUtil;
 import com.github.jxen.math.rational.format.RationalFormat;
 import java.math.BigInteger;
+import java.util.Objects;
+import java.util.Optional;
 
 /**
  * {@code BigRational} class represents rational (fractional) value with 'unlimited' precision.
@@ -164,13 +166,6 @@ public final class BigRational extends Number implements ArithmeticAware<BigRati
 	}
 
 	/**
-	 * @param rational rational
-	 */
-	public BigRational(Rational rational) {
-		this(rational.getX(), rational.getY());
-	}
-
-	/**
 	 * Creates BigRational from given value.
 	 *
 	 * @param value value
@@ -194,13 +189,23 @@ public final class BigRational extends Number implements ArithmeticAware<BigRati
 	}
 
 	/**
+	 * Creates BigRational from given Rational value.
+	 *
+	 * @param value Rational value
+	 * @return BigRational instance
+	 */
+	public static BigRational valueOf(Rational value) {
+		return new BigRational(value.getX(), value.getY());
+	}
+
+	/**
 	 * Creates BigRational from given value.
 	 *
 	 * @param value value
 	 * @return BigRational instance
 	 */
 	public static BigRational valueOf(Number value) {
-		return value instanceof BigRational ? (BigRational) value : valueOf(value.doubleValue());
+		return get(value).orElse(valueOf(value.doubleValue()));
 	}
 
 	/**
@@ -211,7 +216,20 @@ public final class BigRational extends Number implements ArithmeticAware<BigRati
 	 * @return BigRational instance
 	 */
 	public static BigRational valueOf(Number value, long precision) {
-		return value instanceof BigRational ? (BigRational) value : valueOf(value.doubleValue(), precision);
+		return get(value).orElse(valueOf(value.doubleValue(), precision));
+	}
+
+	private static Optional<BigRational> get(Number value) {
+		if (value instanceof BigRational) {
+			return Optional.of((BigRational) value);
+		}
+		if (value instanceof Rational) {
+			return Optional.of(valueOf((Rational) value));
+		}
+		if (value instanceof BigInteger) {
+			return Optional.of(new BigRational((BigInteger) value));
+		}
+		return Optional.empty();
 	}
 
 	/**
@@ -292,10 +310,7 @@ public final class BigRational extends Number implements ArithmeticAware<BigRati
 
 	@Override
 	public BigRational plus(Number value) {
-		if (value instanceof BigRational) {
-			return plus((BigRational) value);
-		}
-		return ArithmeticAware.super.plus(value);
+		return plus(valueOf(value));
 	}
 
 	/**
@@ -326,10 +341,7 @@ public final class BigRational extends Number implements ArithmeticAware<BigRati
 
 	@Override
 	public BigRational minus(Number value) {
-		if (value instanceof BigRational) {
-			return minus((BigRational) value);
-		}
-		return ArithmeticAware.super.minus(value);
+		return minus(valueOf(value));
 	}
 
 	/**
@@ -360,10 +372,7 @@ public final class BigRational extends Number implements ArithmeticAware<BigRati
 
 	@Override
 	public BigRational multiply(Number value) {
-		if (value instanceof BigRational) {
-			return multiply((BigRational) value);
-		}
-		return ArithmeticAware.super.multiply(value);
+		return multiply(valueOf(value));
 	}
 
 	/**
@@ -394,10 +403,7 @@ public final class BigRational extends Number implements ArithmeticAware<BigRati
 
 	@Override
 	public BigRational div(Number value) {
-		if (value instanceof BigRational) {
-			return div((BigRational) value);
-		}
-		return ArithmeticAware.super.div(value);
+		return div(valueOf(value));
 	}
 
 	/**
@@ -430,10 +436,7 @@ public final class BigRational extends Number implements ArithmeticAware<BigRati
 
 	@Override
 	public BigRational mod(Number value) {
-		if (value instanceof BigRational) {
-			return mod((BigRational) value);
-		}
-		return ArithmeticAware.super.mod(value);
+		return mod(valueOf(value));
 	}
 
 	@Override
@@ -521,8 +524,8 @@ public final class BigRational extends Number implements ArithmeticAware<BigRati
 	@Override
 	public int hashCode() {
 		final int prime = 31;
-		int result = prime + this.x.hashCode();
-		return prime * result + this.y.hashCode();
+		int result = prime + x.hashCode();
+		return prime * result + y.hashCode();
 	}
 
 	@Override
@@ -537,7 +540,7 @@ public final class BigRational extends Number implements ArithmeticAware<BigRati
 			return false;
 		}
 		BigRational other = (BigRational) obj;
-		return x.equals(other.x) && y.equals(other.y);
+		return Objects.equals(x, other.x) && Objects.equals(y, other.y);
 	}
 
 	@Override

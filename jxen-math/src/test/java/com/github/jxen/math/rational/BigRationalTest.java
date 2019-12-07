@@ -7,6 +7,9 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Objects;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
@@ -46,53 +49,9 @@ class BigRationalTest {
 	}
 
 	@Test
-	void testCreateFromRational() {
-		BigRational actual = new BigRational(Rational.HALF);
-		assertEquals(BigInteger.ONE, actual.getX());
-		assertEquals(BigInteger.valueOf(2), actual.getY());
-	}
-
-	@Test
-	void testValueOf() {
-		BigRational actual = BigRational.valueOf(0.33333);
-		BigRational expected = BigRational.ONE_THIRD;
-		assertEquals(expected, actual);
-		assertEquals(BigInteger.ONE, actual.getX());
-		assertEquals(BigInteger.valueOf(3), actual.getY());
-	}
-
-	@Test
 	void testValueOfPrecision() {
 		BigRational actual = BigRational.valueOf(0.33333, 100000);
 		BigRational expected = new BigRational(33333, 100000);
-		assertEquals(expected, actual);
-	}
-
-	@Test
-	void testValueOfRational() {
-		BigRational actual = BigRational.valueOf(BigRational.ONE_THIRD);
-		BigRational expected = BigRational.ONE_THIRD;
-		assertEquals(expected, actual);
-	}
-
-	@Test
-	void testValueOfRationalPrecision() {
-		BigRational actual = BigRational.valueOf(BigRational.ONE_THIRD, 100000);
-		BigRational expected = BigRational.ONE_THIRD;
-		assertEquals(expected, actual);
-	}
-
-	@Test
-	void testValueOfNumber() {
-		BigRational actual = BigRational.valueOf(Rational.ONE_THIRD);
-		BigRational expected = BigRational.ONE_THIRD;
-		assertEquals(expected, actual);
-	}
-
-	@Test
-	void testValueOfNumberPrecision() {
-		BigRational actual = BigRational.valueOf(Rational.ONE_THIRD, 100000);
-		BigRational expected = BigRational.ONE_THIRD;
 		assertEquals(expected, actual);
 	}
 
@@ -149,6 +108,13 @@ class BigRationalTest {
 	}
 
 	@Test
+	void testPlusDouble() {
+		BigRational actual = BigRational.HALF.plus(1.0);
+		BigRational expected = new BigRational(3, 2);
+		assertEquals(expected, actual);
+	}
+
+	@Test
 	void testPlusDecimal() {
 		BigRational actual = BigRational.HALF.plus(BigDecimal.valueOf(0.5));
 		BigRational expected = BigRational.ONE;
@@ -166,6 +132,13 @@ class BigRationalTest {
 	@Test
 	void testMinusLong() {
 		BigRational actual = BigRational.HALF.minus(1);
+		BigRational expected = new BigRational(-1, 2);
+		assertEquals(expected, actual);
+	}
+
+	@Test
+	void testMinusDouble() {
+		BigRational actual = BigRational.HALF.minus(1.0);
 		BigRational expected = new BigRational(-1, 2);
 		assertEquals(expected, actual);
 	}
@@ -193,6 +166,13 @@ class BigRationalTest {
 	}
 
 	@Test
+	void testMultiplyDouble() {
+		BigRational actual = BigRational.HALF.multiply(1.0);
+		BigRational expected = BigRational.HALF;
+		assertEquals(expected, actual);
+	}
+
+	@Test
 	void testMultiplyDecimal() {
 		BigRational actual = BigRational.HALF.multiply(BigDecimal.valueOf(0.5));
 		BigRational expected = BigRational.ONE_FOURTH;
@@ -215,6 +195,13 @@ class BigRationalTest {
 	}
 
 	@Test
+	void testDivDouble() {
+		BigRational actual = BigRational.HALF.div(1.0);
+		BigRational expected = BigRational.HALF;
+		assertEquals(expected, actual);
+	}
+
+	@Test
 	void testDivDecimal() {
 		BigRational actual = BigRational.HALF.div(BigDecimal.valueOf(0.5));
 		BigRational expected = BigRational.ONE;
@@ -232,6 +219,13 @@ class BigRationalTest {
 	@Test
 	void testModLong() {
 		BigRational actual = BigRational.HALF.mod(1);
+		BigRational expected = BigRational.HALF;
+		assertEquals(expected, actual);
+	}
+
+	@Test
+	void testModDouble() {
+		BigRational actual = BigRational.HALF.mod(1.0);
 		BigRational expected = BigRational.HALF;
 		assertEquals(expected, actual);
 	}
@@ -299,6 +293,13 @@ class BigRationalTest {
 	}
 
 	@Test
+	void testToRationalCaseBig() {
+		BigInteger numerator = new BigInteger("1000000000000000000000");
+		BigInteger denominator = new BigInteger("2000000000000000000001");
+		assertEquals(Rational.HALF, new BigRational(numerator, denominator).toRational());
+	}
+
+	@Test
 	void testIntValue() {
 		assertEquals(0, BigRational.HALF.intValue());
 	}
@@ -329,7 +330,41 @@ class BigRationalTest {
 	}
 
 	@Test
+	void testNotEquals3() {
+		assertNotEquals(new RationalHolder(BigRational.ONE), new RationalHolder(null));
+	}
+
+	@Test
 	void testToString() {
 		assertEquals("1/2", BigRational.HALF.toString());
+	}
+
+	@Test
+	void testHashCode() {
+		Map<BigRational, Integer> map = new HashMap<>();
+		map.put(BigRational.ONE, 1);
+		assertEquals(1, map.get(BigRational.ONE));
+	}
+
+	private static class RationalHolder {
+		private final BigRational value;
+
+		private RationalHolder(BigRational value) {
+			this.value = value;
+		}
+
+		@Override
+		public boolean equals(Object o) {
+			if (!(o instanceof RationalHolder)) {
+				return false;
+			}
+			RationalHolder that = (RationalHolder) o;
+			return value.equals(that.value);
+		}
+
+		@Override
+		public int hashCode() {
+			return Objects.hash(value);
+		}
 	}
 }

@@ -3,6 +3,7 @@ package com.github.jxen.math.rational;
 import com.github.jxen.math.common.ArithmeticAware;
 import com.github.jxen.math.common.MathUtil;
 import com.github.jxen.math.rational.format.RationalFormat;
+import java.util.Optional;
 
 /**
  * {@code Rational} class represents rational (fractional) value.
@@ -170,7 +171,7 @@ public final class Rational extends Number implements ArithmeticAware<Rational> 
 	 * @return Rational
 	 */
 	public static Rational valueOf(Number value) {
-		return value instanceof Rational ? (Rational) value : valueOf(value.doubleValue());
+		return get(value).orElse(valueOf(value.doubleValue()));
 	}
 
 	/**
@@ -181,7 +182,17 @@ public final class Rational extends Number implements ArithmeticAware<Rational> 
 	 * @return Rational
 	 */
 	public static Rational valueOf(Number value, long precision) {
-		return value instanceof Rational ? (Rational) value : valueOf(value.doubleValue(), precision);
+		return get(value).orElse(valueOf(value.doubleValue(), precision));
+	}
+
+	private static Optional<Rational> get(Number value) {
+		if (value instanceof Rational) {
+			return Optional.of((Rational) value);
+		}
+		if (value instanceof BigRational) {
+			return Optional.of(((BigRational) value).toRational());
+		}
+		return Optional.empty();
 	}
 
 	/**
@@ -256,10 +267,7 @@ public final class Rational extends Number implements ArithmeticAware<Rational> 
 
 	@Override
 	public Rational plus(Number value) {
-		if (value instanceof Rational) {
-			return plus((Rational) value);
-		}
-		return ArithmeticAware.super.plus(value);
+		return plus(valueOf(value));
 	}
 
 	/**
@@ -285,10 +293,7 @@ public final class Rational extends Number implements ArithmeticAware<Rational> 
 
 	@Override
 	public Rational minus(Number value) {
-		if (value instanceof Rational) {
-			return minus((Rational) value);
-		}
-		return ArithmeticAware.super.minus(value);
+		return minus(valueOf(value));
 	}
 
 	/**
@@ -313,10 +318,7 @@ public final class Rational extends Number implements ArithmeticAware<Rational> 
 
 	@Override
 	public Rational multiply(Number value) {
-		if (value instanceof Rational) {
-			return multiply((Rational) value);
-		}
-		return ArithmeticAware.super.multiply(value);
+		return multiply(valueOf(value));
 	}
 
 	/**
@@ -341,10 +343,7 @@ public final class Rational extends Number implements ArithmeticAware<Rational> 
 
 	@Override
 	public Rational div(Number value) {
-		if (value instanceof Rational) {
-			return div((Rational) value);
-		}
-		return ArithmeticAware.super.div(value);
+		return div(valueOf(value));
 	}
 
 	/**
@@ -370,10 +369,7 @@ public final class Rational extends Number implements ArithmeticAware<Rational> 
 
 	@Override
 	public Rational mod(Number value) {
-		if (value instanceof Rational) {
-			return mod((Rational) value);
-		}
-		return ArithmeticAware.super.mod(value);
+		return mod(valueOf(value));
 	}
 
 	@Override

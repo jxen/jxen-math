@@ -6,8 +6,8 @@ import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import com.github.jxen.math.common.ArithmeticAware;
 import java.math.BigDecimal;
+import java.util.Objects;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
@@ -40,46 +40,9 @@ class RationalTest {
 	}
 
 	@Test
-	void testValueOf() {
-		Rational actual = Rational.valueOf(0.33333);
-		Rational expected = Rational.ONE_THIRD;
-		assertEquals(expected, actual);
-		assertEquals(1, actual.getX());
-		assertEquals(3, actual.getY());
-	}
-
-	@Test
 	void testValueOfPrecision() {
 		Rational actual = Rational.valueOf(0.33333, 100000);
 		Rational expected = new Rational(33333, 100000);
-		assertEquals(expected, actual);
-	}
-
-	@Test
-	void testValueOfRational() {
-		Rational actual = Rational.valueOf(Rational.ONE_THIRD);
-		Rational expected = Rational.ONE_THIRD;
-		assertEquals(expected, actual);
-	}
-
-	@Test
-	void testValueOfRationalPrecision() {
-		Rational actual = Rational.valueOf(Rational.ONE_THIRD, 100000);
-		Rational expected = Rational.ONE_THIRD;
-		assertEquals(expected, actual);
-	}
-
-	@Test
-	void testValueOfNumber() {
-		Rational actual = Rational.valueOf(BigRational.ONE);
-		Rational expected = Rational.ONE;
-		assertEquals(expected, actual);
-	}
-
-	@Test
-	void testValueOfNumberPrecision() {
-		Rational actual = Rational.valueOf(BigRational.ONE, 100000);
-		Rational expected = Rational.ONE;
 		assertEquals(expected, actual);
 	}
 
@@ -141,6 +104,13 @@ class RationalTest {
 	}
 
 	@Test
+	void testPlusDouble() {
+		Rational actual = Rational.HALF.plus(1.0);
+		Rational expected = new Rational(3, 2);
+		assertEquals(expected, actual);
+	}
+
+	@Test
 	void testPlusDecimal() {
 		Rational actual = Rational.HALF.plus(BigDecimal.valueOf(0.5));
 		Rational expected = Rational.ONE;
@@ -173,6 +143,13 @@ class RationalTest {
 	@Test
 	void testMinusLong() {
 		Rational actual = Rational.HALF.minus(1);
+		Rational expected = new Rational(-1, 2);
+		assertEquals(expected, actual);
+	}
+
+	@Test
+	void testMinusDouble() {
+		Rational actual = Rational.HALF.minus(1.0);
 		Rational expected = new Rational(-1, 2);
 		assertEquals(expected, actual);
 	}
@@ -215,6 +192,13 @@ class RationalTest {
 	}
 
 	@Test
+	void testMultiplyDouble() {
+		Rational actual = Rational.HALF.multiply(1.0);
+		Rational expected = Rational.HALF;
+		assertEquals(expected, actual);
+	}
+
+	@Test
 	void testMultiplyDecimal() {
 		Rational actual = Rational.HALF.multiply(BigDecimal.valueOf(0.5));
 		Rational expected = Rational.ONE_FOURTH;
@@ -252,6 +236,13 @@ class RationalTest {
 	}
 
 	@Test
+	void testDivDouble() {
+		Rational actual = Rational.HALF.div(1.0);
+		Rational expected = Rational.HALF;
+		assertEquals(expected, actual);
+	}
+
+	@Test
 	void testDivDecimal() {
 		Rational actual = Rational.HALF.div(BigDecimal.valueOf(0.5));
 		Rational expected = Rational.ONE;
@@ -274,6 +265,13 @@ class RationalTest {
 	@Test
 	void testModLong() {
 		Rational actual = Rational.HALF.mod(1);
+		Rational expected = Rational.HALF;
+		assertEquals(expected, actual);
+	}
+
+	@Test
+	void testModDouble() {
+		Rational actual = Rational.HALF.mod(1.0);
 		Rational expected = Rational.HALF;
 		assertEquals(expected, actual);
 	}
@@ -371,7 +369,34 @@ class RationalTest {
 	}
 
 	@Test
+	void testNotEquals3() {
+		assertNotEquals(new RationalHolder(Rational.ONE), new RationalHolder(null));
+	}
+
+	@Test
 	void testToString() {
 		assertEquals("1/2", Rational.HALF.toString());
+	}
+
+	private static class RationalHolder {
+		private final Rational value;
+
+		private RationalHolder(Rational value) {
+			this.value = value;
+		}
+
+		@Override
+		public boolean equals(Object o) {
+			if (!(o instanceof RationalHolder)) {
+				return false;
+			}
+			RationalHolder that = (RationalHolder) o;
+			return value.equals(that.value);
+		}
+
+		@Override
+		public int hashCode() {
+			return Objects.hash(value);
+		}
 	}
 }

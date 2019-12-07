@@ -275,4 +275,10 @@ class MatrixTest {
 	void testNotEquals() {
 		assertNotEquals(Matrix.identity(1), 1);
 	}
+
+	@Test
+	void testHashCode() {
+		Matrix matrix = Matrix.identity(1);
+		assertEquals(1072693341, matrix.hashCode());
+	}
 }

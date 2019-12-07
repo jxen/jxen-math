@@ -2,11 +2,13 @@ package com.github.jxen.math.common;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import com.github.jxen.math.rational.Rational;
 import java.math.BigDecimal;
+import java.util.HashMap;
+import java.util.Map;
 import org.junit.jupiter.api.Test;
 
 class DecimalAdaptersTest {
@@ -183,5 +185,30 @@ class DecimalAdaptersTest {
 	void testIntegralNegative() {
 		ArithmeticAware<?> value = Adapters.lookup(BigDecimal.valueOf(1.5));
 		assertFalse(value.isIntegral());
+	}
+
+	@Test
+	void testCompareTo() {
+		@SuppressWarnings("unchecked")
+		ArithmeticAware<BigDecimal> value = (ArithmeticAware<BigDecimal>) Adapters.lookup(BigDecimal.ONE);
+		assertEquals(0, value.compareTo(BigDecimal.ONE));
+	}
+
+	@Test
+	void testHashCode() {
+		Map<ArithmeticAware<?>, Integer> map = new HashMap<>();
+		ArithmeticAware<?> value = Adapters.lookup(BigDecimal.ONE);
+		map.put(value, 1);
+		assertEquals(1, map.get(value));
+		assertEquals(1, map.get(Adapters.lookup(BigDecimal.ONE)));
+	}
+
+	@Test
+	void testEquals() {
+		ArithmeticAware<?> value = Adapters.lookup(BigDecimal.ONE);
+		assertEquals(value, value);
+		assertEquals(value, Adapters.lookup(BigDecimal.ONE));
+		assertNotEquals(value, Adapters.lookup(BigDecimal.ZERO));
+		assertNotEquals(value, Adapters.lookup(1.0));
 	}
 }

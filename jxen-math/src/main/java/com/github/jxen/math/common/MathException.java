@@ -24,11 +24,4 @@ public class MathException extends RuntimeException {
 	public MathException(String message, Throwable cause) {
 		super(message, cause);
 	}
-
-	/**
-	 * @param cause cause
-	 */
-	public MathException(Throwable cause) {
-		super(cause);
-	}
 }
