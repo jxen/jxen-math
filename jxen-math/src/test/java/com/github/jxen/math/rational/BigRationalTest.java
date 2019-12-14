@@ -7,6 +7,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;
+import java.math.RoundingMode;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
@@ -49,8 +50,29 @@ class BigRationalTest {
 	}
 
 	@Test
+	void testValueOfBigInteger() {
+		Number value = BigInteger.ONE;
+		BigRational actual = BigRational.valueOf(value);
+		assertEquals(BigRational.ONE, actual);
+	}
+
+	@Test
+	void testValueOfBigDecimal() {
+		BigRational value = BigRational.valueOf(new BigDecimal("1.0").setScale(-1, RoundingMode.HALF_UP));
+		assertEquals(BigRational.ZERO, value);
+	}
+
+	@Test
 	void testValueOfPrecision() {
 		BigRational actual = BigRational.valueOf(0.33333, 100000);
+		BigRational expected = new BigRational(33333, 100000);
+		assertEquals(expected, actual);
+	}
+
+	@Test
+	void testValueOfNumberPrecision() {
+		Number value = 0.33333;
+		BigRational actual = BigRational.valueOf(value, 100000);
 		BigRational expected = new BigRational(33333, 100000);
 		assertEquals(expected, actual);
 	}

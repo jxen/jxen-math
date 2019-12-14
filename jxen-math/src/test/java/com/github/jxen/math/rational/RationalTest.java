@@ -7,6 +7,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.util.Objects;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -40,8 +41,23 @@ class RationalTest {
 	}
 
 	@Test
+	void testValueOfBigRational() {
+		Number value = BigRational.ONE;
+		Rational actual = Rational.valueOf(value);
+		assertEquals(Rational.ONE, actual);
+	}
+
+	@Test
 	void testValueOfPrecision() {
 		Rational actual = Rational.valueOf(0.33333, 100000);
+		Rational expected = new Rational(33333, 100000);
+		assertEquals(expected, actual);
+	}
+
+	@Test
+	void testValueOfNumberPrecision() {
+		Number value = 0.33333;
+		Rational actual = Rational.valueOf(value, 100000);
 		Rational expected = new Rational(33333, 100000);
 		assertEquals(expected, actual);
 	}

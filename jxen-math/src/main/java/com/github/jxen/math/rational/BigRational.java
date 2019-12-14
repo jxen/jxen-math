@@ -3,6 +3,7 @@ package com.github.jxen.math.rational;
 import com.github.jxen.math.common.ArithmeticAware;
 import com.github.jxen.math.common.MathUtil;
 import com.github.jxen.math.rational.format.RationalFormat;
+import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.util.Objects;
 import java.util.Optional;
@@ -199,6 +200,23 @@ public final class BigRational extends Number implements ArithmeticAware<BigRati
 	}
 
 	/**
+	 * Creates BigRational from given Rational value.
+	 *
+	 * @param value Rational value
+	 * @return BigRational instance
+	 * @since Math 0.3
+	 */
+	public static BigRational valueOf(BigDecimal value) {
+		int scale = value.scale();
+		if (scale < 0) {
+			return new BigRational(value.unscaledValue().multiply(BigInteger.TEN.pow(-scale)));
+		}
+		BigInteger x = value.unscaledValue();
+		BigInteger y = BigInteger.TEN.pow(scale);
+		return new BigRational(x, y);
+	}
+
+	/**
 	 * Creates BigRational from given value.
 	 *
 	 * @param value value
@@ -228,6 +246,9 @@ public final class BigRational extends Number implements ArithmeticAware<BigRati
 		}
 		if (value instanceof BigInteger) {
 			return Optional.of(new BigRational((BigInteger) value));
+		}
+		if (value instanceof BigDecimal) {
+			return Optional.of(valueOf((BigDecimal) value));
 		}
 		return Optional.empty();
 	}
