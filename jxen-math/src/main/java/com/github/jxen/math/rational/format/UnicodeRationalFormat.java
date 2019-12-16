@@ -1,11 +1,11 @@
 package com.github.jxen.math.rational.format;
 
-import com.github.jxen.math.common.MathException;
 import com.github.jxen.math.rational.Rational;
+import com.github.jxen.math.unicode.NumberHelper;
+import com.github.jxen.math.unicode.SubscriptHelper;
+import com.github.jxen.math.unicode.SuperscriptHelper;
 import java.math.BigInteger;
-import java.util.ArrayDeque;
 import java.util.Collections;
-import java.util.Deque;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -19,32 +19,6 @@ import java.util.Map;
 public class UnicodeRationalFormat extends RationalFormat {
 
 	private static final long serialVersionUID = 983461923548214606L;
-
-	private static final char[] NUMERATORS = {
-			'\u2070', // 0
-			'\u00B9', // 1
-			'\u00B2', // 2
-			'\u00B3', // 3
-			'\u2074', // 4
-			'\u2075', // 5
-			'\u2076', // 6
-			'\u2077', // 7
-			'\u2078', // 8
-			'\u2079', // 9
-	};
-
-	private static final char[] DENOMINATORS = {
-			'\u2080', // 0
-			'\u2081', // 1
-			'\u2082', // 2
-			'\u2083', // 3
-			'\u2084', // 4
-			'\u2085', // 5
-			'\u2086', // 6
-			'\u2087', // 7
-			'\u2088', // 8
-			'\u2089', // 9
-	};
 
 	private static final Map<Rational, String> SHORTS;
 
@@ -117,72 +91,35 @@ public class UnicodeRationalFormat extends RationalFormat {
 
 	private static final class UnicodeHelper implements Helper {
 
-		static final UnicodeHelper NUMERATOR_HELPER = new UnicodeHelper(NUMERATORS);
-		static final UnicodeHelper DENOMINATOR_HELPER = new UnicodeHelper(DENOMINATORS);
+		static final UnicodeHelper NUMERATOR_HELPER = new UnicodeHelper(new SuperscriptHelper());
+		static final UnicodeHelper DENOMINATOR_HELPER = new UnicodeHelper(new SubscriptHelper());
 
-		private static final long serialVersionUID = 3223211785737519327L;
+		private static final long serialVersionUID = -8004187890154211343L;
 
-		private static final String ERROR = "Unparsable entity: ";
-		private static final long TEN_LONG = 10;
+		private final NumberHelper helper;
 
-		private final char[] digits;
-
-		private UnicodeHelper(char[] digits) {
-			this.digits = digits.clone();
+		private UnicodeHelper(NumberHelper helper) {
+			this.helper = helper;
 		}
 
 		@Override
 		public String format(long value) {
-			Deque<Integer> stack = new ArrayDeque<>();
-			for (long n = value; n > 0; n /= TEN_LONG) {
-				stack.push((int) (n % TEN_LONG));
-			}
-			StringBuilder builder = new StringBuilder();
-			while (!stack.isEmpty()) {
-				builder.append(digits[stack.pop()]);
-			}
-			return builder.toString();
+			return helper.to(String.valueOf(value));
 		}
 
 		@Override
 		public String format(BigInteger value) {
-			Deque<Integer> stack = new ArrayDeque<>();
-			for (BigInteger n = value; n.signum() > 0; n = n.divide(BigInteger.TEN)) {
-				stack.push(n.mod(BigInteger.TEN).intValue());
-			}
-			StringBuilder builder = new StringBuilder();
-			while (!stack.isEmpty()) {
-				builder.append(digits[stack.pop()]);
-			}
-			return builder.toString();
+			return helper.to(value.toString());
 		}
 
 		@Override
 		public long parseLong(String value) {
-			String text = new String(digits);
-			long result = 0;
-			for (char c : value.toCharArray()) {
-				int index = text.indexOf(c);
-				if (index == -1) {
-					throw new MathException(ERROR + value);
-				}
-				result = result * TEN_LONG + index;
-			}
-			return result;
+			return Long.parseLong(helper.from(value));
 		}
 
 		@Override
 		public BigInteger parseBigInteger(String value) {
-			String text = new String(digits);
-			BigInteger result = BigInteger.ZERO;
-			for (char c : value.toCharArray()) {
-				int index = text.indexOf(c);
-				if (index == -1) {
-					throw new MathException(ERROR + value);
-				}
-				result = result.multiply(BigInteger.TEN).add(BigInteger.valueOf(index));
-			}
-			return result;
+			return new BigInteger(helper.from(value));
 		}
 	}
 }

@@ -115,7 +115,7 @@ class UnicodeRationalFormatTest {
 	@Test
 	void testParseLongFailure() {
 		String source = "1\u2044\u2082\u2080\u2080\u2080\u2080\u2080\u2080\u2080\u2080\u2080\u2080\u2080\u2080";
-		assertThrows(MathException.class, () -> new UnicodeRationalFormat().parse(source));
+		assertThrows(NumberFormatException.class, () -> new UnicodeRationalFormat().parse(source));
 	}
 
 	@Test
@@ -139,6 +139,6 @@ class UnicodeRationalFormatTest {
 	void testParseBigRationalFailure() {
 		String source = "1\u2044\u2082\u2080\u2080\u2080\u2080\u2080\u2080\u2080\u2080\u2080\u2080\u2080\u2080"
 				+ "\u2080\u2080\u2080\u2080\u2080\u2080\u2080";
-		assertThrows(MathException.class, () -> new UnicodeRationalFormat().parse(source));
+		assertThrows(NumberFormatException.class, () -> new UnicodeRationalFormat().parse(source));
 	}
 }
