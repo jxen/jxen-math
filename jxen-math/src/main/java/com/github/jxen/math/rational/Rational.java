@@ -84,6 +84,11 @@ public final class Rational extends Number implements ArithmeticAware<Rational> 
 	public static final Rational FIVE_SIXTH = new Rational(5L, 6L);
 
 	/**
+	 * One seventh (1/7).
+	 */
+	public static final Rational ONE_SEVENTH = new Rational(1L, 7L);
+
+	/**
 	 * One eighth (1/8).
 	 */
 	public static final Rational ONE_EIGHTH = new Rational(1L, 8L);
@@ -103,7 +108,17 @@ public final class Rational extends Number implements ArithmeticAware<Rational> 
 	 */
 	public static final Rational SEVEN_EIGHTH = new Rational(7L, 8L);
 
-	private static final long serialVersionUID = -8753233083151504099L;
+	/**
+	 * One ninth (1/9).
+	 */
+	public static final Rational ONE_NINTH = new Rational(1L, 9L);
+
+	/**
+	 * One tenth (1/10).
+	 */
+	public static final Rational ONE_TENTH = new Rational(1L, 10L);
+
+	private static final long serialVersionUID = -598043134243078504L;
 
 	private static final String ERROR_OVERFLOW = "Long overflow";
 

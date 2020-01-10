@@ -34,7 +34,7 @@ public final class MathUtil {
 	}
 
 	/**
-	 * Creates chain fraction from given value.
+	 * Creates continued fraction from given value.
 	 *
 	 * @param value     value
 	 * @param maxCount  maxCount
@@ -43,7 +43,7 @@ public final class MathUtil {
 	 */
 	public static long[] toFraction(double value, int maxCount, long precision) {
 		int sign = (int) Math.signum(value);
-		long[] chain = toChainFraction(sign * value, maxCount, precision);
+		long[] chain = toContinuedFraction(sign * value, maxCount, precision);
 		if (chain.length == 1) {
 			return new long[] {sign * chain[0], 1};
 		}
@@ -80,15 +80,7 @@ public final class MathUtil {
 		return toFraction(value, RATIONAL_PRECISION);
 	}
 
-	/**
-	 * Creates chain fraction from given value.
-	 *
-	 * @param value     value
-	 * @param maxCount  maxCount
-	 * @param precision precision (longest denominator)
-	 * @return chain fraction as list of {@code long}s
-	 */
-	private static long[] toChainFraction(double value, int maxCount, long precision) {
+	private static long[] toContinuedFraction(double value, int maxCount, long precision) {
 		long[] values = new long[maxCount + 1];
 		values[0] = (long) value;
 		double x = 1.0 / (value - values[0]);

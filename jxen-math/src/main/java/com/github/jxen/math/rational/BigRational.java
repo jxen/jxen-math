@@ -87,6 +87,11 @@ public final class BigRational extends Number implements ArithmeticAware<BigRati
 	public static final BigRational FIVE_SIXTH = new BigRational(5L, 6L);
 
 	/**
+	 * One seventh (1/7).
+	 */
+	public static final BigRational ONE_SEVENTH = new BigRational(1L, 7L);
+
+	/**
 	 * One eighth (1/8).
 	 */
 	public static final BigRational ONE_EIGHTH = new BigRational(1L, 8L);
@@ -106,7 +111,17 @@ public final class BigRational extends Number implements ArithmeticAware<BigRati
 	 */
 	public static final BigRational SEVEN_EIGHTH = new BigRational(7L, 8L);
 
-	private static final long serialVersionUID = -2551261044633005905L;
+	/**
+	 * One ninth (1/9).
+	 */
+	public static final BigRational ONE_NINTH = new BigRational(1L, 9L);
+
+	/**
+	 * One tenth (1/10).
+	 */
+	public static final BigRational ONE_TENTH = new BigRational(1L, 10L);
+
+	private static final long serialVersionUID = 1677283852572843237L;
 
 	private final BigInteger x;
 	private final BigInteger y;

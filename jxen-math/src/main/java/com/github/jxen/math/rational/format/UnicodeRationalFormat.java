@@ -14,6 +14,7 @@ import java.util.Map;
  * using special Unicode symbols.
  *
  * @author Denis Murashev
+ *
  * @since Math 0.1
  */
 public class UnicodeRationalFormat extends RationalFormat {
@@ -37,10 +38,13 @@ public class UnicodeRationalFormat extends RationalFormat {
 		s.put(Rational.FOUR_FIFTH, "\u2158");   // 4/5
 		s.put(Rational.ONE_SIXTH, "\u2159");    // 1/6
 		s.put(Rational.FIVE_SIXTH, "\u215A");   // 5/6
+		s.put(Rational.ONE_SEVENTH, "\u2150");  // 1/7
 		s.put(Rational.ONE_EIGHTH, "\u215B");   // 1/8
 		s.put(Rational.THREE_EIGHTH, "\u215C"); // 3/8
 		s.put(Rational.FIVE_EIGHTH, "\u215D");  // 5/8
 		s.put(Rational.SEVEN_EIGHTH, "\u215E"); // 7/8
+		s.put(Rational.ONE_NINTH, "\u2151");    // 1/9
+		s.put(Rational.ONE_TENTH, "\u2152");    // 1/10
 
 		Map<String, Rational> r = new HashMap<>();
 		s.forEach((key, value) -> r.put(value, key));
