@@ -31,6 +31,17 @@ public final class SampleCollectors {
 		return new CollectorImpl<>(() -> new Stats(size), Stats::add, Stats::add);
 	}
 
+	/**
+	 * Provides collector for quantile calculation.
+	 *
+	 * @return collector for {@link Quantile}
+	 *
+	 * @since Math Statistics 0.2
+	 */
+	public static Collector<Number, Quantile, Quantile> quantile() {
+		return new CollectorImpl<>(Quantile::new, Quantile::add, Quantile::add);
+	}
+
 	private static final class CollectorImpl<T, S> implements Collector<T, S, S> {
 
 		private final Supplier<S> supplier;
