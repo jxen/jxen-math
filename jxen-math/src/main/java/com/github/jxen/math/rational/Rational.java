@@ -186,7 +186,7 @@ public final class Rational extends Number implements ArithmeticAware<Rational> 
 	 * @return Rational
 	 */
 	public static Rational valueOf(Number value) {
-		return get(value).orElse(valueOf(value.doubleValue()));
+		return get(value).orElseGet(() -> valueOf(value.doubleValue()));
 	}
 
 	/**

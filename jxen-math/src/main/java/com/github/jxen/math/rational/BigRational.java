@@ -238,7 +238,7 @@ public final class BigRational extends Number implements ArithmeticAware<BigRati
 	 * @return BigRational instance
 	 */
 	public static BigRational valueOf(Number value) {
-		return get(value).orElse(valueOf(value.doubleValue()));
+		return get(value).orElseGet(() -> valueOf(value.doubleValue()));
 	}
 
 	/**
