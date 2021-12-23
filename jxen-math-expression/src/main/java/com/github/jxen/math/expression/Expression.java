@@ -10,37 +10,43 @@ import java.util.Map;
  */
 public final class Expression {
 
-	private final AbstractNode root;
+  private final AbstractNode root;
 
-	Expression(AbstractNode root) {
-		this.root = root;
-	}
+  Expression(AbstractNode root) {
+    this.root = root;
+  }
 
-	/**
-	 * @param arg map of arguments
-	 * @return evaluated expression
-	 */
-	public double evaluate(Map<String, ? extends Number> arg) {
-		return root.evaluate(arg);
-	}
+  /**
+   * Evaluates expression.
+   *
+   * @param arg map of arguments
+   * @return evaluated expression
+   */
+  public double evaluate(Map<String, ? extends Number> arg) {
+    return root.evaluate(arg);
+  }
 
-	/**
-	 * @return simplified expression
-	 */
-	public Expression simplify() {
-		return new Expression(root.simplify());
-	}
+  /**
+   * Simplifies expression.
+   *
+   * @return simplified expression
+   */
+  public Expression simplify() {
+    return new Expression(root.simplify());
+  }
 
-	/**
-	 * @param arg argument
-	 * @return derivative
-	 */
-	public Expression derivative(String arg) {
-		return new Expression(root.derivative(arg).simplify());
-	}
+  /**
+   * Calculates derivative.
+   *
+   * @param arg argument
+   * @return derivative
+   */
+  public Expression derivative(String arg) {
+    return new Expression(root.derivative(arg).simplify());
+  }
 
-	@Override
-	public String toString() {
-		return root.toString();
-	}
+  @Override
+  public String toString() {
+    return root.toString();
+  }
 }

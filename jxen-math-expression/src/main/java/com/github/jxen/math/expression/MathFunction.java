@@ -10,30 +10,36 @@ import java.util.function.DoubleUnaryOperator;
  */
 public final class MathFunction {
 
-	private final String name;
-	private final DoubleUnaryOperator operator;
+  private final String name;
+  private final DoubleUnaryOperator operator;
 
-	/**
-	 * @param name     name
-	 * @param operator operator
-	 */
-	public MathFunction(String name, DoubleUnaryOperator operator) {
-		this.name = name;
-		this.operator = operator;
-	}
+  /**
+   * Initializes with given values.
+   *
+   * @param name     name
+   * @param operator operator
+   */
+  public MathFunction(String name, DoubleUnaryOperator operator) {
+    this.name = name;
+    this.operator = operator;
+  }
 
-	/**
-	 * @return function name
-	 */
-	public String getName() {
-		return name;
-	}
+  /**
+   * Provides function name.
+   *
+   * @return function name
+   */
+  public String getName() {
+    return name;
+  }
 
-	/**
-	 * @param arg argument
-	 * @return function result
-	 */
-	public double value(double arg) {
-		return operator.applyAsDouble(arg);
-	}
+  /**
+   * Evaluates function value.
+   *
+   * @param arg argument
+   * @return function result
+   */
+  public double value(double arg) {
+    return operator.applyAsDouble(arg);
+  }
 }

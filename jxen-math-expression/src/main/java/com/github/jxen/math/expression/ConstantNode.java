@@ -6,42 +6,42 @@ import java.util.Set;
 
 final class ConstantNode extends ValueNode {
 
-	static final ConstantNode MINUS_ONE = new ConstantNode(-1);
+  static final ConstantNode MINUS_ONE = new ConstantNode(-1);
 
-	static final ConstantNode ZERO = new ConstantNode(0);
+  static final ConstantNode ZERO = new ConstantNode(0);
 
-	static final ConstantNode ONE = new ConstantNode(1);
+  static final ConstantNode ONE = new ConstantNode(1);
 
-	static final ConstantNode TWO = new ConstantNode(2);
+  static final ConstantNode TWO = new ConstantNode(2);
 
-	private final Number value;
+  private final Number value;
 
-	ConstantNode(Number value) {
-		this(String.valueOf(value), value);
-	}
+  ConstantNode(Number value) {
+    this(String.valueOf(value), value);
+  }
 
-	ConstantNode(Token token, Number value) {
-		super(token);
-		this.value = value;
-	}
+  ConstantNode(Token token, Number value) {
+    super(token);
+    this.value = value;
+  }
 
-	ConstantNode(String name, Number value) {
-		super(name);
-		this.value = value;
-	}
+  ConstantNode(String name, Number value) {
+    super(name);
+    this.value = value;
+  }
 
-	@Override
-	double evaluate(Map<String, ? extends Number> arg) {
-		return value.doubleValue();
-	}
+  @Override
+  double evaluate(Map<String, ? extends Number> arg) {
+    return value.doubleValue();
+  }
 
-	@Override
-	AbstractNode derivative(String arg) {
-		return ZERO;
-	}
+  @Override
+  AbstractNode derivative(String arg) {
+    return ZERO;
+  }
 
-	@Override
-	Set<String> getVariables() {
-		return Collections.emptySet();
-	}
+  @Override
+  Set<String> getVariables() {
+    return Collections.emptySet();
+  }
 }

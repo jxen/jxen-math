@@ -7,26 +7,26 @@ import java.util.Set;
 
 final class VariableNode extends ValueNode {
 
-	VariableNode(Token token) {
-		super(token);
-	}
+  VariableNode(Token token) {
+    super(token);
+  }
 
-	VariableNode(String name) {
-		super(name);
-	}
+  VariableNode(String name) {
+    super(name);
+  }
 
-	@Override
-	double evaluate(Map<String, ? extends Number> arg) {
-		return arg.get(getName()).doubleValue();
-	}
+  @Override
+  double evaluate(Map<String, ? extends Number> arg) {
+    return arg.get(getName()).doubleValue();
+  }
 
-	@Override
-	AbstractNode derivative(String arg) {
-		return getName().equalsIgnoreCase(arg) ? ConstantNode.ONE : ConstantNode.ZERO;
-	}
+  @Override
+  AbstractNode derivative(String arg) {
+    return getName().equalsIgnoreCase(arg) ? ConstantNode.ONE : ConstantNode.ZERO;
+  }
 
-	@Override
-	Set<String> getVariables() {
-		return new HashSet<>(Collections.singletonList(getName()));
-	}
+  @Override
+  Set<String> getVariables() {
+    return new HashSet<>(Collections.singletonList(getName()));
+  }
 }

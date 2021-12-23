@@ -5,43 +5,43 @@ import java.util.Set;
 
 abstract class AbstractNode {
 
-	private final Token token;
-	private final String name;
+  private final Token token;
+  private final String name;
 
-	AbstractNode(Token token) {
-		this.token = token;
-		this.name = token.getValue();
-	}
+  AbstractNode(Token token) {
+    this.token = token;
+    this.name = token.getValue();
+  }
 
-	AbstractNode(String name) {
-		this.token = new Token(name, -1);
-		this.name = name;
-	}
+  AbstractNode(String name) {
+    this.token = new Token(name, -1);
+    this.name = name;
+  }
 
-	@Override
-	public String toString() {
-		return name;
-	}
+  @Override
+  public String toString() {
+    return name;
+  }
 
-	Token getToken() {
-		return token;
-	}
+  Token getToken() {
+    return token;
+  }
 
-	String getName() {
-		return name;
-	}
+  String getName() {
+    return name;
+  }
 
-	int getPosition() {
-		return token.getPosition();
-	}
+  int getPosition() {
+    return token.getPosition();
+  }
 
-	abstract double evaluate(Map<String, ? extends Number> args);
+  abstract double evaluate(Map<String, ? extends Number> args);
 
-	abstract AbstractNode simplify();
+  abstract AbstractNode simplify();
 
-	abstract AbstractNode derivative(String arg);
+  abstract AbstractNode derivative(String arg);
 
-	abstract void setChildren(AbstractNode left, AbstractNode right);
+  abstract void setChildren(AbstractNode left, AbstractNode right);
 
-	abstract Set<String> getVariables();
+  abstract Set<String> getVariables();
 }
