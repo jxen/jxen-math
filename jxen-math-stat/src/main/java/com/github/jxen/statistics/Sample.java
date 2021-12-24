@@ -11,19 +11,19 @@ package com.github.jxen.statistics;
  */
 public interface Sample<T extends Sample<T>> {
 
-	/**
-	 * Adds value to sample.
-	 *
-	 * @param value value
-	 * @return current sample
-	 */
-	T add(Number value);
+  /**
+   * Adds value to sample.
+   *
+   * @param value value
+   * @return current sample
+   */
+  T add(Number value);
 
-	/**
-	 * Combines two samples.
-	 *
-	 * @param sample sample to add
-	 * @return combined sample
-	 */
-	T add(T sample);
+  /**
+   * Combines two samples.
+   *
+   * @param sample sample to add
+   * @return combined sample
+   */
+  T add(T sample);
 }

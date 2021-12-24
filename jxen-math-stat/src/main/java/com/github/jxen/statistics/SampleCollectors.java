@@ -18,65 +18,65 @@ import java.util.stream.Collector;
  */
 public final class SampleCollectors {
 
-	private SampleCollectors() {
-	}
+  private SampleCollectors() {
+  }
 
-	/**
-	 * Provides collector for primitive double values.
-	 *
-	 * @param size size of {@link Stats} object
-	 * @return collector for {@link Stats}
-	 */
-	public static Collector<Number, Stats, Stats> primitive(int size) {
-		return new CollectorImpl<>(() -> new Stats(size), Stats::add, Stats::add);
-	}
+  /**
+   * Provides collector for primitive double values.
+   *
+   * @param size size of {@link Stats} object
+   * @return collector for {@link Stats}
+   */
+  public static Collector<Number, Stats, Stats> primitive(int size) {
+    return new CollectorImpl<>(() -> new Stats(size), Stats::add, Stats::add);
+  }
 
-	/**
-	 * Provides collector for quantile calculation.
-	 *
-	 * @return collector for {@link Quantile}
-	 *
-	 * @since Math Statistics 0.2
-	 */
-	public static Collector<Number, Quantile, Quantile> quantile() {
-		return new CollectorImpl<>(Quantile::new, Quantile::add, Quantile::add);
-	}
+  /**
+   * Provides collector for quantile calculation.
+   *
+   * @return collector for {@link Quantile}
+   *
+   * @since Math Statistics 0.2
+   */
+  public static Collector<Number, Quantile, Quantile> quantile() {
+    return new CollectorImpl<>(Quantile::new, Quantile::add, Quantile::add);
+  }
 
-	private static final class CollectorImpl<T, S> implements Collector<T, S, S> {
+  private static final class CollectorImpl<T, S> implements Collector<T, S, S> {
 
-		private final Supplier<S> supplier;
-		private final BiConsumer<S, T> accumulator;
-		private final BinaryOperator<S> combiner;
+    private final Supplier<S> supplier;
+    private final BiConsumer<S, T> accumulator;
+    private final BinaryOperator<S> combiner;
 
-		private CollectorImpl(Supplier<S> supplier, BiConsumer<S, T> accumulator, BinaryOperator<S> combiner) {
-			this.supplier = supplier;
-			this.accumulator = accumulator;
-			this.combiner = combiner;
-		}
+    private CollectorImpl(Supplier<S> supplier, BiConsumer<S, T> accumulator, BinaryOperator<S> combiner) {
+      this.supplier = supplier;
+      this.accumulator = accumulator;
+      this.combiner = combiner;
+    }
 
-		@Override
-		public Supplier<S> supplier() {
-			return supplier;
-		}
+    @Override
+    public Supplier<S> supplier() {
+      return supplier;
+    }
 
-		@Override
-		public BiConsumer<S, T> accumulator() {
-			return accumulator;
-		}
+    @Override
+    public BiConsumer<S, T> accumulator() {
+      return accumulator;
+    }
 
-		@Override
-		public BinaryOperator<S> combiner() {
-			return combiner;
-		}
+    @Override
+    public BinaryOperator<S> combiner() {
+      return combiner;
+    }
 
-		@Override
-		public Function<S, S> finisher() {
-			return Function.identity();
-		}
+    @Override
+    public Function<S, S> finisher() {
+      return Function.identity();
+    }
 
-		@Override
-		public Set<Characteristics> characteristics() {
-			return Collections.unmodifiableSet(EnumSet.of(Collector.Characteristics.IDENTITY_FINISH));
-		}
-	}
+    @Override
+    public Set<Characteristics> characteristics() {
+      return Collections.unmodifiableSet(EnumSet.of(Collector.Characteristics.IDENTITY_FINISH));
+    }
+  }
 }
