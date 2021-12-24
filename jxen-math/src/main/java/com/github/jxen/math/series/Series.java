@@ -9,16 +9,20 @@ package com.github.jxen.math.series;
  */
 public interface Series {
 
-	/**
-	 * @param start start value
-	 * @return iterator
-	 */
-	SeriesIterator iterator(Number start);
+  /**
+   * Provides iterator.
+   *
+   * @param start start value
+   * @return iterator
+   */
+  SeriesIterator iterator(Number start);
 
-	/**
-	 * @return default iterator
-	 */
-	default SeriesIterator iterator() {
-		return iterator(1);
-	}
+  /**
+   * Provides default iterator.
+   *
+   * @return default iterator
+   */
+  default SeriesIterator iterator() {
+    return iterator(1);
+  }
 }

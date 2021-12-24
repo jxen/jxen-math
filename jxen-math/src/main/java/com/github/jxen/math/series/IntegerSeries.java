@@ -11,32 +11,32 @@ import com.github.jxen.math.common.Adapters;
  */
 public class IntegerSeries implements Series {
 
-	@Override
-	public SeriesIterator iterator(Number start) {
-		return new IntegerIterator(start);
-	}
+  @Override
+  public SeriesIterator iterator(Number start) {
+    return new IntegerIterator(start);
+  }
 
-	private static final class IntegerIterator implements SeriesIterator {
+  private static final class IntegerIterator implements SeriesIterator {
 
-		private int current;
+    private int current;
 
-		private IntegerIterator(Number start) {
-			current = Adapters.lookup(start).round().intValue();
-		}
+    private IntegerIterator(Number start) {
+      current = Adapters.lookup(start).round().intValue();
+    }
 
-		@Override
-		public Integer current() {
-			return current;
-		}
+    @Override
+    public Integer current() {
+      return current;
+    }
 
-		@Override
-		public Integer next() {
-			return ++current;
-		}
+    @Override
+    public Integer next() {
+      return ++current;
+    }
 
-		@Override
-		public Integer previous() {
-			return --current;
-		}
-	}
+    @Override
+    public Integer previous() {
+      return --current;
+    }
+  }
 }

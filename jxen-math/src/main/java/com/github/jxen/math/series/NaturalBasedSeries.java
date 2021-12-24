@@ -11,11 +11,13 @@ import java.util.stream.IntStream;
  */
 public class NaturalBasedSeries extends ArrayBasedSeries {
 
-	/**
-	 * @param max  max
-	 * @param base base
-	 */
-	public NaturalBasedSeries(int max, int base) {
-		super(IntStream.range(0, max).map(i -> i + 1).toArray(), base);
-	}
+  /**
+   * Initializes with given values.
+   *
+   * @param max  max
+   * @param base base
+   */
+  public NaturalBasedSeries(int max, int base) {
+    super(IntStream.range(0, max).map(i -> i + 1).toArray(), base);
+  }
 }

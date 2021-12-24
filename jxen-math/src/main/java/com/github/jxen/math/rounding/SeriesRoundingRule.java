@@ -11,17 +11,19 @@ import com.github.jxen.math.series.Series;
  */
 public class SeriesRoundingRule implements RoundingRule {
 
-	private final Series series;
+  private final Series series;
 
-	/**
-	 * @param series series
-	 */
-	public SeriesRoundingRule(Series series) {
-		this.series = series;
-	}
+  /**
+   * Initializes with given values.
+   *
+   * @param series series
+   */
+  public SeriesRoundingRule(Series series) {
+    this.series = series;
+  }
 
-	@Override
-	public Number round(Number value) {
-		return series.iterator(value).current();
-	}
+  @Override
+  public Number round(Number value) {
+    return series.iterator(value).current();
+  }
 }

@@ -9,17 +9,19 @@ package com.github.jxen.math.format;
  */
 public class UnicodeCompactFormat extends CompactFormat {
 
-	private static final long serialVersionUID = 5582591146669400500L;
+  private static final long serialVersionUID = 5582591146669400500L;
 
-	/**
-	 * @param digits number of digits to display
-	 */
-	public UnicodeCompactFormat(int digits) {
-		super(digits);
-	}
+  /**
+   * Initializes with given value.
+   *
+   * @param digits number of digits to display
+   */
+  public UnicodeCompactFormat(int digits) {
+    super(digits);
+  }
 
-	@Override
-	protected ScientificFormat getScientificFormat(int digitCount) {
-		return new UnicodeScientificFormat(digitCount);
-	}
+  @Override
+  protected ScientificFormat getScientificFormat(int digitCount) {
+    return new UnicodeScientificFormat(digitCount);
+  }
 }

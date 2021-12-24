@@ -1,4 +1,4 @@
 /**
- * <p>Common Math Classes</p>
+ * Common Math Classes.
  */
 package com.github.jxen.math.common;

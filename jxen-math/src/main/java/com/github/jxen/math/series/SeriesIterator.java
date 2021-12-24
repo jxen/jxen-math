@@ -9,18 +9,24 @@ package com.github.jxen.math.series;
  */
 public interface SeriesIterator {
 
-	/**
-	 * @return current item
-	 */
-	Number current();
+  /**
+   * Current item.
+   *
+   * @return current item
+   */
+  Number current();
 
-	/**
-	 * @return next item
-	 */
-	Number next();
+  /**
+   * Next item.
+   *
+   * @return next item
+   */
+  Number next();
 
-	/**
-	 * @return previous item
-	 */
-	Number previous();
+  /**
+   * Previous item.
+   *
+   * @return previous item
+   */
+  Number previous();
 }

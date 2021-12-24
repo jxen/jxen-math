@@ -8,20 +8,24 @@ package com.github.jxen.math.common;
  */
 public class MathException extends RuntimeException {
 
-	private static final long serialVersionUID = -5517734766962936031L;
+  private static final long serialVersionUID = -5517734766962936031L;
 
-	/**
-	 * @param message message
-	 */
-	public MathException(String message) {
-		super(message);
-	}
+  /**
+   * Initializes with given value.
+   *
+   * @param message message
+   */
+  public MathException(String message) {
+    super(message);
+  }
 
-	/**
-	 * @param message message
-	 * @param cause   cause
-	 */
-	public MathException(String message, Throwable cause) {
-		super(message, cause);
-	}
+  /**
+   * Initializes with given values.
+   *
+   * @param message message
+   * @param cause   cause
+   */
+  public MathException(String message, Throwable cause) {
+    super(message, cause);
+  }
 }

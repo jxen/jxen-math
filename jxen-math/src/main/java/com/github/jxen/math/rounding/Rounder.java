@@ -12,32 +12,38 @@ import com.github.jxen.math.common.Adapters;
  */
 public class Rounder {
 
-	private final RoundingRule rule;
-	private final Number ratio;
+  private final RoundingRule rule;
+  private final Number ratio;
 
-	/**
-	 * @param ratio ratio
-	 * @param rule  rule
-	 */
-	public Rounder(RoundingRule rule, Number ratio) {
-		this.rule = rule;
-		this.ratio = ratio;
-	}
+  /**
+   * Initializes with given values.
+   *
+   * @param ratio ratio
+   * @param rule  rule
+   */
+  public Rounder(RoundingRule rule, Number ratio) {
+    this.rule = rule;
+    this.ratio = ratio;
+  }
 
-	/**
-	 * @param rule  rule
-	 */
-	public Rounder(RoundingRule rule) {
-		this(rule, 1);
-	}
+  /**
+   * Initializes with given value.
+   *
+   * @param rule  rule
+   */
+  public Rounder(RoundingRule rule) {
+    this(rule, 1);
+  }
 
-	/**
-	 * @param value value
-	 * @return rounded value
-	 */
-	public Number round(Number value) {
-		Number min = rule.round(Adapters.lookup(value).div(ratio));
-		long n = Math.round(Adapters.lookup(value).div(min).doubleValue());
-		return Adapters.lookup(min).multiply(n);
-	}
+  /**
+   * Rounds given value.
+   *
+   * @param value value
+   * @return rounded value
+   */
+  public final Number round(Number value) {
+    Number min = rule.round(Adapters.lookup(value).div(ratio));
+    long n = Math.round(Adapters.lookup(value).div(min).doubleValue());
+    return Adapters.lookup(min).multiply(n);
+  }
 }

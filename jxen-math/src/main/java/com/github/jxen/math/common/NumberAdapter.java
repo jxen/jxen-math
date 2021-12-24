@@ -10,11 +10,11 @@ package com.github.jxen.math.common;
 @FunctionalInterface
 public interface NumberAdapter {
 
-	/**
-	 * Provides adapter for given {@link Number}.
-	 *
-	 * @param value value to be adapted
-	 * @return adapter able to be used in arithmetic operations
-	 */
-	ArithmeticAware<?> adapt(Number value);
+  /**
+   * Provides adapter for given {@link Number}.
+   *
+   * @param value value to be adapted
+   * @return adapter able to be used in arithmetic operations
+   */
+  ArithmeticAware<?> adapt(Number value);
 }

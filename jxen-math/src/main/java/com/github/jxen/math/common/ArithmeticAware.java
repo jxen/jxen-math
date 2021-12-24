@@ -11,144 +11,190 @@ package com.github.jxen.math.common;
  */
 public interface ArithmeticAware<T extends Number> extends Comparable<T> {
 
-	/**
-	 * @return absolute value
-	 */
-	T abs();
+  /**
+   * Provides absolute value.
+   *
+   * @return absolute value
+   */
+  T abs();
 
-	/**
-	 * @return negated value
-	 */
-	T negate();
+  /**
+   * Provides negated value.
+   *
+   * @return negated value
+   */
+  T negate();
 
-	/**
-	 * @return reciprocal value
-	 */
-	T reciprocal();
+  /**
+   * Provides reciprocal value.
+   *
+   * @return reciprocal value
+   */
+  T reciprocal();
 
-	/**
-	 * @param value argument
-	 * @return sum
-	 */
-	T plus(double value);
+  /**
+   * Adds.
+   *
+   * @param value argument
+   * @return sum
+   */
+  T plus(double value);
 
-	/**
-	 * @param value argument
-	 * @return sum
-	 */
-	T plus(long value);
+  /**
+   * Adds.
+   *
+   * @param value argument
+   * @return sum
+   */
+  T plus(long value);
 
-	/**
-	 * @param value argument
-	 * @return sum
-	 */
-	default T plus(Number value) {
-		return plus(value.doubleValue());
-	}
+  /**
+   * Adds.
+   *
+   * @param value argument
+   * @return sum
+   */
+  default T plus(Number value) {
+    return plus(value.doubleValue());
+  }
 
-	/**
-	 * @param value argument
-	 * @return difference
-	 */
-	T minus(double value);
+  /**
+   * Subtracts.
+   *
+   * @param value argument
+   * @return difference
+   */
+  T minus(double value);
 
-	/**
-	 * @param value argument
-	 * @return difference
-	 */
-	T minus(long value);
+  /**
+   * Subtracts.
+   *
+   * @param value argument
+   * @return difference
+   */
+  T minus(long value);
 
-	/**
-	 * @param value argument
-	 * @return difference
-	 */
-	default T minus(Number value) {
-		return minus(value.doubleValue());
-	}
+  /**
+   * Subtracts.
+   *
+   * @param value argument
+   * @return difference
+   */
+  default T minus(Number value) {
+    return minus(value.doubleValue());
+  }
 
-	/**
-	 * @param value argument
-	 * @return product
-	 */
-	T multiply(double value);
+  /**
+   * Multiplies.
+   *
+   * @param value argument
+   * @return product
+   */
+  T multiply(double value);
 
-	/**
-	 * @param value argument
-	 * @return product
-	 */
-	T multiply(long value);
+  /**
+   * Multiplies.
+   *
+   * @param value argument
+   * @return product
+   */
+  T multiply(long value);
 
-	/**
-	 * @param value argument
-	 * @return product
-	 */
-	default T multiply(Number value) {
-		return multiply(value.doubleValue());
-	}
+  /**
+   * Multiplies.
+   *
+   * @param value argument
+   * @return product
+   */
+  default T multiply(Number value) {
+    return multiply(value.doubleValue());
+  }
 
-	/**
-	 * @param value argument
-	 * @return ratio
-	 */
-	T div(double value);
+  /**
+   * Divides.
+   *
+   * @param value argument
+   * @return ratio
+   */
+  T div(double value);
 
-	/**
-	 * @param value argument
-	 * @return ratio
-	 */
-	T div(long value);
+  /**
+   * Divides.
+   *
+   * @param value argument
+   * @return ratio
+   */
+  T div(long value);
 
-	/**
-	 * @param value argument
-	 * @return ratio
-	 */
-	default T div(Number value) {
-		return div(value.doubleValue());
-	}
+  /**
+   * Divides.
+   *
+   * @param value argument
+   * @return ratio
+   */
+  default T div(Number value) {
+    return div(value.doubleValue());
+  }
 
-	/**
-	 * @param value argument
-	 * @return modulo
-	 */
-	T mod(double value);
+  /**
+   * Calculates modulo.
+   *
+   * @param value argument
+   * @return modulo
+   */
+  T mod(double value);
 
-	/**
-	 * @param value argument
-	 * @return modulo
-	 */
-	T mod(long value);
+  /**
+   * Calculates modulo.
+   *
+   * @param value argument
+   * @return modulo
+   */
+  T mod(long value);
 
-	/**
-	 * @param value argument
-	 * @return modulo
-	 */
-	default T mod(Number value) {
-		return mod(value.doubleValue());
-	}
+  /**
+   * Calculates modulo.
+   *
+   * @param value argument
+   * @return modulo
+   */
+  default T mod(Number value) {
+    return mod(value.doubleValue());
+  }
 
-	/**
-	 * @param value argument
-	 * @return value to the given power
-	 */
-	T power(int value);
+  /**
+   * Calculates power.
+   *
+   * @param value argument
+   * @return value to the given power
+   */
+  T power(int value);
 
-	/**
-	 * @return rounded value
-	 */
-	T round();
+  /**
+   * Provides rounded value.
+   *
+   * @return rounded value
+   */
+  T round();
 
-	/**
-	 * @return floor value
-	 */
-	T floor();
+  /**
+   * Provides floor value.
+   *
+   * @return floor value
+   */
+  T floor();
 
-	/**
-	 * @return ceiling value
-	 */
-	T ceil();
+  /**
+   * Provides ceiling value.
+   *
+   * @return ceiling value
+   */
+  T ceil();
 
-	/**
-	 * @return {@code true} if value is integral
-	 */
-	boolean isIntegral();
+  /**
+   * Checks if value is integral.
+   *
+   * @return {@code true} if value is integral
+   */
+  boolean isIntegral();
 }

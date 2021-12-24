@@ -9,9 +9,11 @@ package com.github.jxen.math.rounding;
  */
 public interface RoundingRule {
 
-	/**
-	 * @param value value
-	 * @return rounded value
-	 */
-	Number round(Number value);
+  /**
+   * Rounds given value.
+   *
+   * @param value value
+   * @return rounded value
+   */
+  Number round(Number value);
 }
