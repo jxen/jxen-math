@@ -7,6 +7,11 @@ import org.junit.jupiter.api.Test;
 class CompactFormatTest {
 
   @Test
+  void testFormatCase0() {
+    assertEquals("0", new CompactFormat(4).format(0));
+  }
+
+  @Test
   void testFormatCase1() {
     assertEquals("1", new CompactFormat(4).format(1));
   }

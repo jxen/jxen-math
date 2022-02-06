@@ -36,7 +36,7 @@ public class CompactFormat extends NumberFormat {
   @Override
   public StringBuffer format(double number, StringBuffer toAppendTo, FieldPosition pos) {
     double abs = Math.abs(number);
-    if (abs > max || abs < MIN) {
+    if (abs > 0.0 && abs < MIN || abs > max) {
       return getScientificFormat(digits - 1).format(number, toAppendTo, pos);
     }
     int count = digits - (int) Math.floor(Math.log10(abs)) - 1;
@@ -62,11 +62,7 @@ public class CompactFormat extends NumberFormat {
     if (digits <= 0) {
       return "0";
     }
-    StringBuilder builder = new StringBuilder("0.");
-    for (int i = 0; i < digits; i++) {
-      builder.append('#');
-    }
-    return builder.toString();
+    return "0." + "#".repeat(digits);
   }
 
   @Override
